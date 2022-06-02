@@ -4,12 +4,12 @@
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <OutputType>Library</OutputType>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <TargetFrameworks>net462;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>LiveChartsCore.SkiaSharpView.WinForms</AssemblyName>
     <RootNamespace>LiveChartsCore.SkiaSharpView.WinForms</RootNamespace>
-    <Version>2.0.0-beta.71</Version>
+    <Version>2.0.0-beta.240</Version>
     <PackageIcon>icon.png</PackageIcon>
     <Description>Simple, flexible, interactive and powerful data visualization for WindowsForms.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -25,7 +25,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp.Views.WindowsForms" Version="2.88.0-preview.254" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,9 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="PolarChart.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="PolarChart.cs" />
   </ItemGroup>
 
 </Project>

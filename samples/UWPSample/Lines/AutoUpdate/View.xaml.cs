@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 using ViewModelsSamples.Lines.AutoUpdate;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace UWPSample.Lines.AutoUpdate
@@ -21,7 +21,7 @@ namespace UWPSample.Lines.AutoUpdate
 
             while (_isStreaming.Value)
             {
-                vm.RemoveFirstItem();
+                vm.RemoveItem();
                 vm.AddItem();
                 await Task.Delay(1000);
             }

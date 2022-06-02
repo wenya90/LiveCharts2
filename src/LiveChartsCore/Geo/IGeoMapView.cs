@@ -23,90 +23,80 @@
 using System;
 using System.Collections.Generic;
 using LiveChartsCore.Drawing;
+using LiveChartsCore.Motion;
 
-namespace LiveChartsCore.Geo
+namespace LiveChartsCore.Geo;
+
+/// <summary>
+/// Defines a geographic map.
+/// </summary>
+public interface IGeoMapView<TDrawingContext>
+    where TDrawingContext : DrawingContext
 {
     /// <summary>
-    /// Defines a geographic map.
+    /// Gets or sets the active map.
     /// </summary>
-    public interface IGeoMapView<TDrawingContext>
-        where TDrawingContext : DrawingContext
-    {
-        /// <summary>
-        /// Gets or sets the active map.
-        /// </summary>
-        CoreMap<TDrawingContext> ActiveMap { get; set; }
+    CoreMap<TDrawingContext> ActiveMap { get; set; }
 
-        /// <summary>
-        /// Gets the motion canvas.
-        /// </summary>
-        MotionCanvas<TDrawingContext> Canvas { get; }
+    /// <summary>
+    /// Gets the motion canvas.
+    /// </summary>
+    MotionCanvas<TDrawingContext> Canvas { get; }
 
-        /// <summary>
-        /// Gets the control width.
-        /// </summary>
-        float Width { get; }
+    /// <summary>
+    /// Gets the control width.
+    /// </summary>
+    float Width { get; }
 
-        /// <summary>
-        /// Gets the control height.
-        /// </summary>
-        float Height { get; }
+    /// <summary>
+    /// Gets the control height.
+    /// </summary>
+    float Height { get; }
 
-        /// <summary>
-        /// Gets or sets whether the chart auto-updates are enabled.
-        /// </summary>
-        bool AutoUpdateEnabled { get; set; }
+    /// <summary>
+    /// Gets or sets the stroke.
+    /// </summary>
+    IPaint<TDrawingContext>? Stroke { get; set; }
 
-        /// <summary>
-        /// Gets or sets the projection.
-        /// </summary>
-        MapProjection MapProjection { get; set; }
+    /// <summary>
+    /// Gets or sets the fill.
+    /// </summary>
+    IPaint<TDrawingContext>? Fill { get; set; }
 
-        /// <summary>
-        /// Gets or sets the heat map.
-        /// </summary>
-        LvcColor[] HeatMap { get; set; }
+    /// <summary>
+    /// Gets or sets whether the chart auto-updates are enabled.
+    /// </summary>
+    bool AutoUpdateEnabled { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color stops.
-        /// </summary>
-        double[]? ColorStops { get; set; }
+    /// <summary>
+    /// Gets or sets the projection.
+    /// </summary>
+    MapProjection MapProjection { get; set; }
 
-        /// <summary>
-        /// Gets or sets the stroke.
-        /// </summary>
-        IPaint<TDrawingContext>? Stroke { get; set; }
+    /// <summary>
+    /// Gets whether the control is in designer mode.
+    /// </summary>
+    bool DesignerMode { get; }
 
-        /// <summary>
-        /// Gets or sets the fill.
-        /// </summary>
-        IPaint<TDrawingContext>? Fill { get; set; }
+    /// <summary>
+    /// Gets or sets the Synchronization Context, use this property to
+    /// use an external object to handle multi threading synchronization.
+    /// </summary>
+    object SyncContext { get; set; }
 
-        /// <summary>
-        /// Gets or sets the shapes to draw in the map.
-        /// </summary>
-        IEnumerable<IMapElement> Shapes { get; set; }
+    /// <summary>
+    /// Gets or sets the view command.
+    /// </summary>
+    object? ViewCommand { get; set; }
 
-        /// <summary>
-        /// Gets whether the control is in designer mode.
-        /// </summary>
-        bool DesignerMode { get; }
+    /// <summary>
+    /// Invokes an action in the UI thread.
+    /// </summary>
+    /// <param name="action"></param>
+    void InvokeOnUIThread(Action action);
 
-        /// <summary>
-        /// Gets or sets the Synchronization Context, use this property to
-        /// use an external object to handle multi threading synchronization.
-        /// </summary>
-        object SyncContext { get; set; }
-
-        /// <summary>
-        /// Gets or sets the view command.
-        /// </summary>
-        object? ViewCommand { get; set; }
-
-        /// <summary>
-        /// Invokes an action in the UI thread.
-        /// </summary>
-        /// <param name="action"></param>
-        void InvokeOnUIThread(Action action);
-    }
+    /// <summary>
+    /// Gets or sets the series.
+    /// </summary>
+    IEnumerable<IGeoSeries> Series { get; set; }
 }

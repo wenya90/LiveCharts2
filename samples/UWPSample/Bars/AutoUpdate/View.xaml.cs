@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 using ViewModelsSamples.Bars.AutoUpdate;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace UWPSample.Bars.AutoUpdate
@@ -21,8 +21,8 @@ namespace UWPSample.Bars.AutoUpdate
 
             while (_isStreaming.Value)
             {
-                vm.RemoveFirstItem();
-                vm.AddRandomItem();
+                vm.RemoveItem();
+                vm.AddItem();
                 await Task.Delay(1000);
             }
         }

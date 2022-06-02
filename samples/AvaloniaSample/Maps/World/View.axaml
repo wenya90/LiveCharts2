@@ -6,10 +6,8 @@
              x:Class="AvaloniaSample.Maps.World.View"
              xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
              xmlns:vms="using:ViewModelsSamples.Maps.World">
-
     <UserControl.DataContext>
         <vms:ViewModel/>
     </UserControl.DataContext>
-
-    <lvc:GeoMap Shapes="{Binding Shapes}"></lvc:GeoMap>
+    <lvc:GeoMap Grid.Row="1" Series="{Binding Series}"  MapProjection="Mercator" />
 </UserControl>

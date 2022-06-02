@@ -20,93 +20,122 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System;
 using LiveChartsCore.Drawing;
 using LiveChartsCore.Measure;
-using System;
 
-namespace LiveChartsCore.Kernel.Drawing
+namespace LiveChartsCore.Kernel.Drawing;
+
+/// <summary>
+/// Defines a rectangle hover area.
+/// </summary>
+/// <seealso cref="HoverArea" />
+public class RectangleHoverArea : HoverArea
 {
     /// <summary>
-    /// Defines a rectangle hover area.
+    /// Initializes a new instance of the <see cref="RectangleHoverArea"/> class.
     /// </summary>
-    /// <seealso cref="HoverArea" />
-    public class RectangleHoverArea : HoverArea
+    public RectangleHoverArea() { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RectangleHoverArea"/> class.
+    /// </summary>
+    /// <param name="x">The x.</param>
+    /// <param name="y">The y.</param>
+    /// <param name="width">The width.</param>
+    /// <param name="height">The height.</param>
+    public RectangleHoverArea(float x, float y, float width, float height)
     {
+        X = x;
+        Y = y;
+        Width = width;
+        Height = height;
+    }
 
-        /// <summary>
-        /// Gets or sets the x location.
-        /// </summary>
-        /// <value>
-        /// The x.
-        /// </value>
-        public float X { get; set; }
+    /// <summary>
+    /// Gets or sets the x location.
+    /// </summary>
+    /// <value>
+    /// The x.
+    /// </value>
+    public float X { get; set; }
 
-        /// <summary>
-        /// Gets or sets the y location.
-        /// </summary>
-        /// <value>
-        /// The y.
-        /// </value>
-        public float Y { get; set; }
+    /// <summary>
+    /// Gets or sets the y location.
+    /// </summary>
+    /// <value>
+    /// The y.
+    /// </value>
+    public float Y { get; set; }
 
-        /// <summary>
-        /// Gets or sets the width.
-        /// </summary>
-        /// <value>
-        /// The width.
-        /// </value>
-        public float Width { get; set; }
+    /// <summary>
+    /// Gets or sets the width.
+    /// </summary>
+    /// <value>
+    /// The width.
+    /// </value>
+    public float Width { get; set; }
 
-        /// <summary>
-        /// Gets or sets the height.
-        /// </summary>
-        /// <value>
-        /// The height.
-        /// </value>
-        public float Height { get; set; }
+    /// <summary>
+    /// Gets or sets the height.
+    /// </summary>
+    /// <value>
+    /// The height.
+    /// </value>
+    public float Height { get; set; }
 
-        /// <summary>
-        /// Sets the area dimensions.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <returns></returns>
-        public RectangleHoverArea SetDimensions(float x, float y, float width, float height)
+    /// <summary>
+    /// Sets the area dimensions.
+    /// </summary>
+    /// <param name="x">The x.</param>
+    /// <param name="y">The y.</param>
+    /// <param name="width">The width.</param>
+    /// <param name="height">The height.</param>
+    /// <returns></returns>
+    public RectangleHoverArea SetDimensions(float x, float y, float width, float height)
+    {
+        X = x;
+        Y = y;
+        Width = width;
+        Height = height;
+        return this;
+    }
+
+    /// <inheritdoc cref="HoverArea.DistanceTo(LvcPoint)"/>
+    public override double DistanceTo(LvcPoint point)
+    {
+        var cx = X + Width * 0.5;
+        var cy = Y + Height * 0.5;
+
+        return Math.Sqrt(Math.Pow(point.X - cx, 2) + Math.Pow(point.Y - cy, 2));
+    }
+
+    /// <inheritdoc cref="HoverArea.IsPointerOver(LvcPoint, TooltipFindingStrategy)"/>
+    public override bool IsPointerOver(LvcPoint pointerLocation, TooltipFindingStrategy strategy)
+    {
+        // at least one pixel to fire the tooltip.
+        var w = Width < 1 ? 1 : Width;
+        var h = Height < 1 ? 1 : Height;
+
+        var isInX = pointerLocation.X > X && pointerLocation.X < X + w;
+        var isInY = pointerLocation.Y > Y && pointerLocation.Y < Y + h;
+
+        return strategy switch
         {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
-            return this;
-        }
+            TooltipFindingStrategy.CompareOnlyX or TooltipFindingStrategy.CompareOnlyXTakeClosest => isInX,
+            TooltipFindingStrategy.CompareOnlyY or TooltipFindingStrategy.CompareOnlyYTakeClosest => isInY,
+            TooltipFindingStrategy.CompareAll or TooltipFindingStrategy.CompareAllTakeClosest => isInX && isInY,
+            TooltipFindingStrategy.Automatic => throw new Exception($"The strategy {strategy} is not supported."),
+            _ => throw new NotImplementedException()
+        };
+    }
 
-        /// <inheritdoc cref="GetDistanceToPoint(LvcPoint, TooltipFindingStrategy)"/>
-        public override float GetDistanceToPoint(LvcPoint point, TooltipFindingStrategy strategy)
-        {
-            var dx = point.X - (X + Width * 0.5f);
-            var dy = point.Y - (Y + Height * 0.5f);
-
-            // compiler bug?
-#pragma warning disable IDE0072 // Add missing cases
-            return strategy switch
-#pragma warning restore IDE0072 // Add missing cases
-            {
-                TooltipFindingStrategy.CompareAll => (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2)),
-                TooltipFindingStrategy.CompareOnlyX => Math.Abs(dx),
-                TooltipFindingStrategy.CompareOnlyY => Math.Abs(dy),
-                TooltipFindingStrategy.Automatic or _ => throw new Exception($"The strategy {strategy} is not supported.")
-            };
-        }
-
-        /// <inheritdoc cref="SuggestTooltipPlacement(TooltipPlacementContext)"/>
-        public override void SuggestTooltipPlacement(TooltipPlacementContext cartesianContext)
-        {
-            if (Y < cartesianContext.MostTop) cartesianContext.MostTop = Y;
-            if (Y + Height > cartesianContext.MostBottom) cartesianContext.MostBottom = Y + Height;
-            if (X + Width > cartesianContext.MostRight) cartesianContext.MostRight = X + Width;
-            if (X < cartesianContext.MostLeft) cartesianContext.MostLeft = X;
-        }
+    /// <inheritdoc cref="HoverArea.SuggestTooltipPlacement(TooltipPlacementContext)"/>
+    public override void SuggestTooltipPlacement(TooltipPlacementContext cartesianContext)
+    {
+        if (Y < cartesianContext.MostTop) cartesianContext.MostTop = Y;
+        if (Y + Height > cartesianContext.MostBottom) cartesianContext.MostBottom = Y + Height;
+        if (X + Width > cartesianContext.MostRight) cartesianContext.MostRight = X + Width;
+        if (X < cartesianContext.MostLeft) cartesianContext.MostLeft = X;
     }
 }

@@ -22,35 +22,18 @@
 
 using LiveChartsCore.Drawing;
 
-namespace LiveChartsCore.Geo
+namespace LiveChartsCore.Geo;
+
+/// <summary>
+/// Defines a heat land shape.
+/// </summary>
+public interface IHeatPathShape : IAnimatable
 {
     /// <summary>
-    /// Defines a heat land shape.
+    /// Gets or sets the color of the fill.
     /// </summary>
-    public interface IHeatLandShape
-    {
-        /// <summary>
-        /// Gets or sets the color of the stroke.
-        /// </summary>
-        /// <value>
-        /// The color of the stroke.
-        /// </value>
-        LvcColor StrokeColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the stroke thickness.
-        /// </summary>
-        /// <value>
-        /// The stroke thickness.
-        /// </value>
-        float StrokeThickness { get; set; }
-
-        /// <summary>
-        /// Gets or sets the color of the fill.
-        /// </summary>
-        /// <value>
-        /// The color of the fill.
-        /// </value>
-        LvcColor FillColor { get; set; }
-    }
+    /// <value>
+    /// The color of the fill.
+    /// </value>
+    LvcColor FillColor { get; set; }
 }

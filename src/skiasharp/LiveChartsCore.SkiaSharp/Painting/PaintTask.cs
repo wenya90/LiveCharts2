@@ -20,15 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using LiveChartsCore.Drawing;
 using System;
+using LiveChartsCore.Drawing;
 
-namespace LiveChartsCore.SkiaSharpView.Painting
-{
-    /// <inheritdoc cref="IPaint{TDrawingContext}" />
-    [Obsolete("Renamed to Paint")]
-    public abstract class PaintTask : Paint
-    {
+namespace LiveChartsCore.SkiaSharpView.Painting;
 
-    }
-}
+/// <inheritdoc cref="IPaint{TDrawingContext}" />
+[Obsolete("Renamed to Paint")]
+public abstract class PaintTask : Paint
+{ }

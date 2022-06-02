@@ -21,102 +21,100 @@
 // SOFTWARE.
 
 using LiveChartsCore.Drawing;
+using LiveChartsCore.Motion;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 
-namespace LiveChartsCore.SkiaSharpView.Drawing
+namespace LiveChartsCore.SkiaSharpView.Drawing;
+
+/// <summary>
+/// Defines a skia sharp drawing context.
+/// </summary>
+/// <seealso cref="DrawingContext" />
+public class SkiaSharpDrawingContext : DrawingContext
 {
     /// <summary>
-    /// Defines a skia sharp drawing context.
+    /// Initializes a new instance of the <see cref="SkiaSharpDrawingContext"/> class.
     /// </summary>
-    /// <seealso cref="DrawingContext" />
-    public class SkiaSharpDrawingContext : DrawingContext
+    /// <param name="motionCanvas">The motion canvas.</param>
+    /// <param name="info">The information.</param>
+    /// <param name="surface">The surface.</param>
+    /// <param name="canvas">The canvas.</param>
+    public SkiaSharpDrawingContext(
+        MotionCanvas<SkiaSharpDrawingContext> motionCanvas,
+        SKImageInfo info,
+        SKSurface surface,
+        SKCanvas canvas)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SkiaSharpDrawingContext"/> class.
-        /// </summary>
-        /// <param name="motionCanvas">The motion canvas.</param>
-        /// <param name="info">The information.</param>
-        /// <param name="surface">The surface.</param>
-        /// <param name="canvas">The canvas.</param>
-        /// <param name="lockOnDraw">Locks the canvas while drawing it (workaround for avalonia).</param>
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public SkiaSharpDrawingContext(
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-            MotionCanvas<SkiaSharpDrawingContext> motionCanvas,
-            SKImageInfo info,
-            SKSurface surface,
-            SKCanvas canvas,
-            bool lockOnDraw = false) : base(lockOnDraw)
-        {
-            MotionCanvas = motionCanvas;
-            Info = info;
-            Surface = surface;
-            Canvas = canvas;
-        }
+        MotionCanvas = motionCanvas;
+        Info = info;
+        Surface = surface;
+        Canvas = canvas;
+        PaintTask = null!;
+        Paint = null!;
+    }
 
-        /// <summary>
-        /// Gets or sets the motion canvas.
-        /// </summary>
-        /// <value>
-        /// The motion canvas.
-        /// </value>
-        public MotionCanvas<SkiaSharpDrawingContext> MotionCanvas { get; set; }
+    /// <summary>
+    /// Gets or sets the motion canvas.
+    /// </summary>
+    /// <value>
+    /// The motion canvas.
+    /// </value>
+    public MotionCanvas<SkiaSharpDrawingContext> MotionCanvas { get; set; }
 
-        /// <summary>
-        /// Gets or sets the information.
-        /// </summary>
-        /// <value>
-        /// The information.
-        /// </value>
-        public SKImageInfo Info { get; set; }
+    /// <summary>
+    /// Gets or sets the information.
+    /// </summary>
+    /// <value>
+    /// The information.
+    /// </value>
+    public SKImageInfo Info { get; set; }
 
-        /// <summary>
-        /// Gets or sets the surface.
-        /// </summary>
-        /// <value>
-        /// The surface.
-        /// </value>
-        public SKSurface Surface { get; set; }
+    /// <summary>
+    /// Gets or sets the surface.
+    /// </summary>
+    /// <value>
+    /// The surface.
+    /// </value>
+    public SKSurface Surface { get; set; }
 
-        /// <summary>
-        /// Gets or sets the canvas.
-        /// </summary>
-        /// <value>
-        /// The canvas.
-        /// </value>
-        public SKCanvas Canvas { get; set; }
+    /// <summary>
+    /// Gets or sets the canvas.
+    /// </summary>
+    /// <value>
+    /// The canvas.
+    /// </value>
+    public SKCanvas Canvas { get; set; }
 
-        /// <summary>
-        /// Gets or sets the paint task.
-        /// </summary>
-        /// <value>
-        /// The paint task.
-        /// </value>
-        public Paint PaintTask { get; set; }
+    /// <summary>
+    /// Gets or sets the paint task.
+    /// </summary>
+    /// <value>
+    /// The paint task.
+    /// </value>
+    public Paint PaintTask { get; set; }
 
-        /// <summary>
-        /// Gets or sets the paint.
-        /// </summary>
-        /// <value>
-        /// The paint.
-        /// </value>
-        public SKPaint Paint { get; set; }
+    /// <summary>
+    /// Gets or sets the paint.
+    /// </summary>
+    /// <value>
+    /// The paint.
+    /// </value>
+    public SKPaint Paint { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color of the clear.
-        /// </summary>
-        /// <value>
-        /// The color of the clear.
-        /// </value>
-        public SKColor ClearColor { get; set; } = SKColor.Empty;
+    /// <summary>
+    /// Gets or sets the color of the clear.
+    /// </summary>
+    /// <value>
+    /// The color of the clear.
+    /// </value>
+    public SKColor ClearColor { get; set; } = SKColor.Empty;
 
-        /// <summary>
-        /// Clears the canvas.
-        /// </summary>
-        public override void ClearCanvas()
-        {
-            Canvas.Clear(ClearColor);
-        }
+    /// <summary>
+    /// Clears the canvas.
+    /// </summary>
+    public override void ClearCanvas()
+    {
+        Canvas.Clear(ClearColor);
     }
 }

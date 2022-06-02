@@ -1,25 +1,25 @@
-﻿using LiveChartsCore;
+﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
-namespace ViewModelsSamples.Bars.Spacing
+namespace ViewModelsSamples.Bars.Spacing;
+
+[ObservableObject]
+public partial class ViewModel
 {
-    public class ViewModel
+    public ISeries[] Series { get; set; } =
     {
-        public IEnumerable<ISeries> Series { get; set; } = new ObservableCollection<ISeries>
+        new ColumnSeries<double>
         {
-            new ColumnSeries<double>
-            {
-                Values = new ObservableCollection<double> { 2, 5, 4, 2, 4, 3, 5, 2, 5, 4, 2, 4, 3, 5 },
+            Values = new ObservableCollection<double> { 2, 5, 4, 2, 4, 3, 5, 2, 5, 4, 2, 4, 3, 5 },
 
-                // Defines the distance between every group of bars that share
-                // the same secondary coordinate (normally the X coordinate)
-                GroupPadding = 0,
+            // Defines the distance between every group of bars that share
+            // the same secondary coordinate (normally the X coordinate)
+            GroupPadding = 0,
 
-                // Defines the max width a bar can have
-                MaxBarWidth = double.PositiveInfinity
-            }
-        };
-    }
+            // Defines the max width a bar can have
+            MaxBarWidth = double.PositiveInfinity
+        }
+    };
 }

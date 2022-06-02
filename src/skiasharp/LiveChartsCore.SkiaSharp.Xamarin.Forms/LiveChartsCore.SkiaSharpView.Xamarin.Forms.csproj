@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <TargetFrameworks>netstandard2.0;</TargetFrameworks>
     <AssemblyName>LiveChartsCore.SkiaSharpView.XamarinForms</AssemblyName>
     <RootNamespace>LiveChartsCore.SkiaSharpView.XamarinForms</RootNamespace>
-    <Version>2.0.0-beta.71</Version>
+    <Version>2.0.0-beta.240</Version>
     <PackageIcon>icon.png</PackageIcon>
     <Description>Simple, flexible, interactive and powerful data visualization for XamarinForms.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -22,9 +22,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.0-preview.254" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
   </ItemGroup>
 
   <ItemGroup>

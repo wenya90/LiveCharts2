@@ -20,30 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace LiveChartsCore.Drawing
+namespace LiveChartsCore.Drawing;
+
+/// <summary>
+/// Defines a context that is able to draw 2D shapes in the user interface.
+/// </summary>
+public abstract class DrawingContext
 {
     /// <summary>
-    /// Defines a context that is able to draw 2D shapes in the user interface.
+    /// Clears the canvas.
     /// </summary>
-    public abstract class DrawingContext
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawingContext"/> class.
-        /// </summary>
-        public DrawingContext(bool lockOnDraw = false)
-        {
-            LockOnDraw = lockOnDraw;
-        }
-
-        /// <summary>
-        /// Gets or sets a property indicating whether the canvas should be locked while the
-        /// charts is being drawn.
-        /// </summary>
-        public bool LockOnDraw { get; }
-
-        /// <summary>
-        /// Clears the canvas.
-        /// </summary>
-        public abstract void ClearCanvas();
-    }
+    public abstract void ClearCanvas();
 }

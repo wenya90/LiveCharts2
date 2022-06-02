@@ -20,41 +20,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Collections.Generic;
+using System;
 using LiveChartsCore.Drawing;
 
-namespace LiveChartsCore.Geo
+namespace LiveChartsCore.Geo;
+
+/// <summary>
+/// Defines a map factory.
+/// </summary>
+public interface IMapFactory<TDrawingContext> : IDisposable
+    where TDrawingContext : DrawingContext
 {
     /// <summary>
-    /// Defines a map factory.
+    /// Updates the lands.
     /// </summary>
-    public interface IMapFactory<TDrawingContext>
-        where TDrawingContext : DrawingContext
-    {
-        /// <summary>
-        /// Updates the lands.
-        /// </summary>
-        /// <param name="context"></param>
-        void GenerateLands(MapContext<TDrawingContext> context);
+    /// <param name="context"></param>
+    void GenerateLands(MapContext<TDrawingContext> context);
 
-        /// <summary>
-        /// Fetches the map elements.
-        /// </summary>
-        /// <param name="context">The map context.</param>
-        IEnumerable<IMapElement> FetchMapElements(MapContext<TDrawingContext> context);
+    /// <summary>
+    /// Move the map to the specified view.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="command">The command.</param>
+    void ViewTo(GeoMap<TDrawingContext> sender, object? command);
 
-        /// <summary>
-        /// Move the map to the specified view.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="command">The command.</param>
-        void ViewTo(GeoMap<TDrawingContext> sender, object command);
-
-        /// <summary>
-        /// Pans the map.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="delta">The delta.</param>
-        void Pan(GeoMap<TDrawingContext> sender, LvcPoint delta);
-    }
+    /// <summary>
+    /// Pans the map.
+    /// </summary>
+    /// <param name="sender">The sender.</param>
+    /// <param name="delta">The delta.</param>
+    void Pan(GeoMap<TDrawingContext> sender, LvcPoint delta);
 }

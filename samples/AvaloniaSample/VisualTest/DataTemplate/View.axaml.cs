@@ -1,19 +1,17 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using LiveChartsCore.SkiaSharpView.Avalonia;
 
-namespace AvaloniaSample.VisualTest.DataTemplate
+namespace AvaloniaSample.VisualTest.DataTemplate;
+
+public class View : UserControl
 {
-    public class View : UserControl
+    public View()
     {
-        public View()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }

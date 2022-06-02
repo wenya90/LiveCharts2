@@ -1,0 +1,14 @@
+﻿@page "/Axes/Style"
+@using LiveChartsCore.SkiaSharpView.Blazor
+@using ViewModelsSamples.Axes.Style
+
+<CartesianChart
+	Series="ViewModel.Series"
+	XAxes="ViewModel.XAxes"
+	YAxes="ViewModel.YAxes"
+	DrawMarginFrame="ViewModel.Frame">
+</CartesianChart>
+
+@code {
+	public ViewModel ViewModel { get; set; } = new();
+}

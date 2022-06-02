@@ -23,27 +23,31 @@
 using LiveChartsCore.Drawing;
 using LiveChartsCore.Measure;
 
-namespace LiveChartsCore.Kernel.Drawing
+namespace LiveChartsCore.Kernel.Drawing;
+
+/// <summary>
+/// Defines a hover area.
+/// </summary>
+public abstract class HoverArea
 {
     /// <summary>
-    /// Defines a hover area.
+    /// Gets the distance to a given point.
     /// </summary>
-    public abstract class HoverArea
-    {
-        /// <summary>
-        /// Determines whether the area is trigger by the specified point in the user interface.
-        /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="strategy">The strategy.</param>
-        /// <returns>
-        ///   <c>true</c> if [is trigger by] [the specified point]; otherwise, <c>false</c>.
-        /// </returns>
-        public abstract float GetDistanceToPoint(LvcPoint point, TooltipFindingStrategy strategy);
+    /// <param name="point">The point to calculate the distance to.</param>
+    /// <returns>The distance in pixels.</returns>
+    public abstract double DistanceTo(LvcPoint point);
 
-        /// <summary>
-        /// Suggests the tooltip placement.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        public abstract void SuggestTooltipPlacement(TooltipPlacementContext context);
-    }
+    /// <summary>
+    /// Determines whether the pointer is over the area.
+    /// </summary>
+    /// <param name="pointerLocation">The pointer location.</param>
+    /// <param name="strategy">The strategy.</param>
+    /// <returns></returns>
+    public abstract bool IsPointerOver(LvcPoint pointerLocation, TooltipFindingStrategy strategy);
+
+    /// <summary>
+    /// Suggests the tooltip placement.
+    /// </summary>
+    /// <param name="context">The context.</param>
+    public abstract void SuggestTooltipPlacement(TooltipPlacementContext context);
 }
